@@ -520,6 +520,25 @@ body.locked .sidebar-overlay{display:none!important;}
 </div>
 </section>
 <section id="tools" class="page hidden">
+<div id="toolsHome" class="hidden">
+<div class="panel agreement-type-panel">
+<div class="panel-head">
+<div>
+<h2>Agreement System</h2>
+<p>Select agreement type to open the form, generate preview and print / save PDF.</p>
+</div>
+</div>
+<div class="agreement-type-grid">
+<div class="agreement-type-card" onclick="openAgreementForm('Personal Loan')"><div class="icon">👤</div><h3>Personal Loan</h3><p>Tier charges: 15% / 10% / 8%, minimum RM2,000.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Settlement')"><div class="icon">📋</div><h3>Settlement</h3><p>Settlement service agreement section.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Savings Help')"><div class="icon">💰</div><h3>Savings Help</h3><p>Savings proof service arrangement agreement.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Refinance')"><div class="icon">🏠</div><h3>Refinance</h3><p>Panel lawyer / no panel lawyer refinance terms.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Refinance Cashout')"><div class="icon">💵</div><h3>Refinance Cashout</h3><p>Cash-out fee agreement and panel lawyer clause.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Consultation Fees')"><div class="icon">🧾</div><h3>Consultation Fees</h3><p>Project / subsales consultation fee agreement.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Business Loan')"><div class="icon">💼</div><h3>Business Loan</h3><p>Business loan fee follows Personal Loan structure.</p></div>
+</div>
+</div>
+</div>
 <div id="toolPlaceholderPage" class="hidden">
 <div class="panel">
 <div class="panel-head">
@@ -822,10 +841,30 @@ function hideSidebarOverlay(){ document.body.classList.remove("sidebar-open");
 } function setActiveButton(btn){ document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active")); if(btn) btn.classList.add("active");
 } function hideAllToolModules(){ [ "toolsHome", "agreementFormPage", "toolPlaceholderPage", "refinancePage", "bookingPage", "amortizationPage", "debtConsoPage", "checkEligibilityPage", "propertyCostPage", "bankMatchingPage", "incomeCalculationPage" ].forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.add("hidden"); });
 } function openToolFromSidebar(name, btn){ enterToolFocus(); showPage("tools", btn, true); setActiveButton(btn); hideAllToolModules(); if(name === "Refinance"){ const page=document.getElementById("refinancePage"); if(page) page.classList.remove("hidden"); return; } if(name === "Booking Form"){ const page=document.getElementById("bookingPage"); if(page) page.classList.remove("hidden"); return; } if(name === "Amortization Calculation"){ const page=document.getElementById("amortizationPage"); if(page) page.classList.remove("hidden"); amSetDefaultDate(); return; } if(name === "Debt Conso"){ const page=document.getElementById("debtConsoPage"); if(page) page.classList.remove("hidden"); dcInit(); return; } if(name === "Property Cost Estimator"){ const page=document.getElementById("propertyCostPage"); if(page) page.classList.remove("hidden"); return; } if(name === "Bank Matching"){ const page=document.getElementById("bankMatchingPage"); if(page) page.classList.remove("hidden"); bmRenderFromSheet(); return; } if(name === "Check Eligibility"){ const page=document.getElementById("checkEligibilityPage"); if(page) page.classList.remove("hidden"); return; } if(name === "Income Calculation"){ const page=document.getElementById("incomeCalculationPage"); if(page) page.classList.remove("hidden"); updateIncomeCalcHint(); calcFee(); return; } // Placeholder for modules not yet integrated. const placeholder=document.getElementById("toolPlaceholderPage"); if(placeholder) placeholder.classList.remove("hidden"); const title=document.getElementById("toolPlaceholderTitle"); const sub=document.getElementById("toolPlaceholderSub"); if(title) title.innerText=name; if(sub) sub.innerText=name + " module selected from sidebar.";
-} function openAgreementFromSidebar(type, btn){ exitToolFocus(); showPage("tools", btn, true); setActiveButton(btn); hideAllToolModules(); openAgreementForm(type);
-} let currentAgreementType = "Personal Loan"; function openAgreementForm(type){ currentAgreementType = type; document.getElementById("toolsHome").classList.add("hidden"); document.getElementById("agreementFormPage").classList.remove("hidden"); document.getElementById("agreementFormTitle").innerText = type + " Agreement Form"; if(!document.getElementById("agDate").value){ document.getElementById("agDate").value = new Date().toISOString().slice(0,10); } generateAgreementPreview();
-} function backToToolsHome(){ const placeholder = document.getElementById("toolPlaceholderPage"); if(placeholder) placeholder.classList.add("hidden"); document.getElementById("agreementFormPage").classList.add("hidden"); document.getElementById("toolsHome").classList.remove("hidden");
-
+} function openAgreementFromSidebar(type, btn){
+  exitToolFocus();
+  showPage("tools", btn, true);
+  setActiveButton(btn);
+  hideAllToolModules();
+  openAgreementForm(type);
+}
+let currentAgreementType = "Personal Loan";
+function openAgreementForm(type){
+  currentAgreementType = type || "Personal Loan";
+  const toolsHome = document.getElementById("toolsHome");
+  const formPage = document.getElementById("agreementFormPage");
+  const title = document.getElementById("agreementFormTitle");
+  const date = document.getElementById("agDate");
+  if(toolsHome) toolsHome.classList.add("hidden");
+  if(formPage) formPage.classList.remove("hidden");
+  if(title) title.innerText = currentAgreementType + " Agreement Form";
+  if(date && !date.value) date.value = new Date().toISOString().slice(0,10);
+  generateAgreementPreview();
+}
+function backToToolsHome(){
+  hideAllToolModules();
+  const toolsHome = document.getElementById("toolsHome");
+  if(toolsHome) toolsHome.classList.remove("hidden");
 }
 
 /* Bank Matching dynamic Google Sheet integration */
@@ -1026,12 +1065,19 @@ const AGREEMENT_CONFIG = {
   },
   "Settlement": {
     group: "B - Service-Based Agreement",
-    comingSoon: true,
-    service: "Coming Soon",
-    basis: "Coming Soon",
-    chargeTitle: "Coming Soon",
-    chargeLines: [],
-    special: [],
+    service: "settlement planning, debt settlement support, outstanding balance checking, payment arrangement, document checking and follow-up support.",
+    basis: "Service-Based Settlement Arrangement",
+    chargeTitle: "Settlement Service Charges",
+    chargeLines: [
+      "Settlement service charge is to be confirmed by the Company before processing.",
+      "The Customer agrees that the Company may assist to review settlement amount, documentation, payment arrangement and related follow-up work.",
+      "Any agreed service fee is payable once the service has started, been arranged or completed, regardless of the final approval / settlement outcome."
+    ],
+    special: [
+      "This is a service-based arrangement and may be chargeable once consultation, checking, arrangement or follow-up work has started.",
+      "The Customer must transfer any payable service fee to the Company within twelve (12) hours when requested by the Company.",
+      "The Customer remains fully responsible for the accuracy of all settlement information, payment proof and supporting documents provided."
+    ],
     approvalBased: false
   }
 }; function agreementConfig(type){ return AGREEMENT_CONFIG[type] || AGREEMENT_CONFIG["Personal Loan"];
@@ -1059,9 +1105,7 @@ const AGREEMENT_CONFIG = {
 ]; return common.concat(cfg.special || []);
 } function chargeSectionHtml(type){ const cfg = agreementConfig(type); const chargeLines = (cfg.chargeLines || []).map(x=>`<li>${safe(x)}</li>`).join(""); const estimate = estimateCharge(type); return ` <h3>${safe(cfg.chargeTitle)}</h3>
 <ul>${chargeLines}</ul> ${estimate ? `<p><b>${safe(estimate)}</b></p>` : ""} <p><b>Charging Basis:</b> ${safe(cfg.basis)}</p> `;
-} function generateAgreementPreview(){ if(currentAgreementType === "Settlement"){ agreementPreview.innerHTML = ` <h2>JC WEALTH ADVISORY</h2>
-<div style="color:#7b6b60;font-weight:850">SETTLEMENT AGREEMENT</div>
-<div class="empty" style="margin-top:18px">Coming Soon</div> `; return; } const name = agCustomerName.value || "________________________"; const ic = agIC.value || "________________________"; const contact = agContact.value || "________________"; const date = agDate.value || "________________"; const remarks = agRemarks.value ? safe(agRemarks.value).replace(/\n/g,"<br>") : "No special remarks."; const termsHtml = agreementTerms(currentAgreementType).map(t=>`<li>${safe(t)}</li>`).join(""); agreementPreview.innerHTML = ` <h2>JC WEALTH ADVISORY</h2>
+} function generateAgreementPreview(){ const name = agCustomerName.value || "________________________"; const ic = agIC.value || "________________________"; const contact = agContact.value || "________________"; const date = agDate.value || "________________"; const remarks = agRemarks.value ? safe(agRemarks.value).replace(/\n/g,"<br>") : "No special remarks."; const termsHtml = agreementTerms(currentAgreementType).map(t=>`<li>${safe(t)}</li>`).join(""); agreementPreview.innerHTML = ` <h2>JC WEALTH ADVISORY</h2>
 <div style="color:#7b6b60;font-weight:850">${safe(currentAgreementType).toUpperCase()} AGREEMENT</div>
 <div class="meta">
 <div><b>Customer Name</b><br>${safe(name)}</div>
