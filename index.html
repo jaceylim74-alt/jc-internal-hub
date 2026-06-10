@@ -1080,7 +1080,67 @@ function setStatus(text, isError=false){ syncStatus.innerText = text; statusDot.
   return [];
 } function normalizeRow(row, type){ const get = (...keys) => { for(const k of keys){ if(row[k] !== undefined && row[k] !== null && String(row[k]).trim() !== "") return row[k]; } return ""; }; return { ID: get("ID","Id","No","No."), Type: type, Bank: get("Bank","Bank Name","BankName"), Category: get("Category","Type","Specialty","Product"), Question: get("Question","Title","Topic","PIC Name","PIC","Name","Contact Person"), Answer: get("Answer","Details","Remark","Remarks","Info","Contact","Phone","Gmail","Email"), Charges: get("Charges","Fees","Service Fee","Panel","Full Panel","Adhoc Panel"), UpdatedDate: get("UpdatedDate","Updated Date","Last Updated","Date","Update Date"), _raw: row };
 } function buildData(){ data = []; Object.keys(MASTER_SHEET_TABS).forEach(type=>{ const rows = getRowsForType(type); rows.forEach(row=>data.push(normalizeRow(row,type))); });
-} function loadFromGoogleSheet(){ setStatus("Loading Google Sheet..."); const callbackName = "jcCallback_" + Date.now(); let completed = false; const timeout = setTimeout(function(){ if(completed) return; completed = true; setStatus("Google Sheet No Response - Check Apps Script doGet / Deploy", true); const old = document.getElementById(callbackName); if(old) old.remove(); try{ delete window[callbackName]; }catch(e){} }, 12000); window[callbackName] = function(payload){ if(completed) return; completed = true; clearTimeout(timeout); try{ raw = payload || {}; buildData(); updateDashboard(); renderLatest(); renderTable(); bmRenderFromSheet(); setStatus("Google Sheet Synced"); }catch(err){ console.error(err); setStatus("Data Format Error - Sheet header / JSON format issue", true); }finally{ try{ delete window[callbackName]; }catch(e){} const old = document.getElementById(callbackName); if(old) old.remove(); } }; const script = document.createElement("script"); script.id = callbackName; script.src = APPS_SCRIPT_WEB_APP_URL + "?callback=" + callbackName + "&v=" + Date.now(); script.onerror = function(){ if(completed) return; completed = true; clearTimeout(timeout); setStatus("Google Sheet Load Failed - Apps Script URL / Permission issue", true); renderLatest(); renderTable(); try{ delete window[callbackName]; }catch(e){} script.remove(); }; document.body.appendChild(script);
+} function loadFromGoogleSheet(){
+  setStatus("Loading Google Sheet...");
+
+  const callbackName = "jcCallback_" + Date.now();
+  let completed = false;
+
+  function finish(payload){
+    if(completed) return;
+    completed = true;
+    clearTimeout(timeout);
+    try{
+      raw = payload || {};
+      buildData();
+      updateDashboard();
+      renderLatest();
+      renderTable();
+      bmRenderFromSheet();
+      setStatus("Google Sheet Synced");
+    }catch(err){
+      console.error("Sheet data format error:", err, payload);
+      setStatus("Data Format Error - Check Sheet header / Apps Script JSON", true);
+    }finally{
+      cleanup();
+    }
+  }
+
+  function cleanup(){
+    try{ delete window[callbackName]; }catch(e){}
+    const old = document.getElementById(callbackName);
+    if(old) old.remove();
+  }
+
+  const timeout = setTimeout(function(){
+    if(completed) return;
+    completed = true;
+    cleanup();
+    setStatus("Google Sheet No Response - Redeploy Apps Script as Web App + check doGet", true);
+    renderLatest();
+    renderTable();
+  }, 15000);
+
+  window[callbackName] = finish;
+
+  const script = document.createElement("script");
+  script.id = callbackName;
+  script.src = APPS_SCRIPT_WEB_APP_URL
+    + "?action=read"
+    + "&callback=" + encodeURIComponent(callbackName)
+    + "&v=" + Date.now();
+
+  script.onerror = function(){
+    if(completed) return;
+    completed = true;
+    clearTimeout(timeout);
+    cleanup();
+    setStatus("Google Sheet Load Failed - Apps Script URL / Permission issue", true);
+    renderLatest();
+    renderTable();
+  };
+
+  document.body.appendChild(script);
 } function showPage(id,btn,push=true){ if(id !== "tools") exitToolFocus(); if(push && currentPage !== id) PAGE_HISTORY.push(currentPage); currentPage = id; document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden")); document.getElementById(id).classList.remove("hidden"); document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active")); if(btn) btn.classList.add("active");
 } function openType(type,btn){ currentType = type; showPage("database",btn,true); typeFilter.value = type; databaseTitle.innerText = type; databaseSub.innerText = "Data loaded directly from your Master Google Sheet tab: " + type; renderTable();
 } function showDatabaseAll(){ currentType = ""; showPage("database",null,true); typeFilter.value = ""; databaseTitle.innerText = "Knowledge Database"; databaseSub.innerText = "All master sheet data combined."; renderTable();
