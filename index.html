@@ -721,6 +721,7 @@ body.locked .sidebar-overlay{display:none!important;}
 <button onclick="openAgreementFromSidebar('Refinance Cashout',this)"><span class="mi">💵</span>Refinance Cashout</button>
 <button onclick="openAgreementFromSidebar('Consultation Fees',this)"><span class="mi">🧾</span>Consultation Fees</button>
 <button onclick="openAgreementFromSidebar('Business Loan',this)"><span class="mi">💼</span>Business Loan</button>
+<button onclick="openAgreementFromSidebar('Credit Card Service',this)"><span class="mi">💳</span>Credit Card Service</button>
 <div class="menu-title">Knowledge</div>
 <button onclick="openType('Personal Loan',this)"><span class="mi">📚</span>Personal Loan Knowledge</button>
 <button onclick="openType('Basic Loan',this)"><span class="mi">🎓</span>Basic Knowledge Loan</button>
@@ -754,6 +755,7 @@ body.locked .sidebar-overlay{display:none!important;}
 <div class="service-card"><div class="service-icon">💵</div><h3>Refinance Cashout Service</h3><p>Cash-out planning, property value checking, loan structure comparison and document preparation.</p><span class="tag">Agreement + Service</span></div>
 <div class="service-card"><div class="service-icon">🧾</div><h3>Consultation Fees Service</h3><p>Consultation fee calculation, fee schedule explanation and customer agreement preparation.</p><span class="tag">Agreement + Service</span></div>
 <div class="service-card"><div class="service-icon">💼</div><h3>Business Loan Service</h3><p>Business financing consultation, company profile checking, SSM support and bank submission preparation.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Credit Card Service')" style="cursor:pointer"><div class="service-icon">💳</div><h3>Credit Card Service</h3><p>Credit card application consultation, balance transfer planning, profile review and bank submission assistance.</p><span class="tag">Agreement + Service</span></div>
 <div class="service-card"><div class="service-icon">🛡️</div><h3>Insurance Service</h3><p>Medical card, life protection, mortgage protection and financial risk planning support.</p><span class="tag">Protection</span></div>
 </div>
 </div>
@@ -797,6 +799,7 @@ body.locked .sidebar-overlay{display:none!important;}
 </div>
 <div class="agreement-type-grid">
 <div class="agreement-type-card" onclick="openAgreementForm('Personal Loan')"><div class="icon">👤</div><h3>Personal Loan</h3><p>Tier charges: 15% / 10% / 8%, minimum RM2,000.</p></div>
+<div class="agreement-type-card" onclick="openAgreementForm('Credit Card Service')"><div class="icon">💳</div><h3>Credit Card Service</h3><p>Credit card application agreement with manual per-case service fee.</p></div>
 <div class="agreement-type-card" onclick="openAgreementForm('Settlement')"><div class="icon">📋</div><h3>Settlement</h3><p>Settlement service agreement section.</p></div>
 <div class="agreement-type-card" onclick="openAgreementForm('Savings Help')"><div class="icon">💰</div><h3>Savings Help</h3><p>Savings proof service arrangement agreement.</p></div>
 <div class="agreement-type-card" onclick="openAgreementForm('Refinance')"><div class="icon">🏠</div><h3>Refinance</h3><p>Panel lawyer / no panel lawyer refinance terms.</p></div>
@@ -953,6 +956,7 @@ body.locked .sidebar-overlay{display:none!important;}
 <div class="tool-field"><label>Agreement / Calculator Type</label>
 <select class="tool-soft-select" id="feeType" onchange="updateIncomeCalcHint(); calcFee();">
 <option value="personal">Personal Loan Calculator</option>
+<option value="credit_card">Credit Card Calculator</option>
 <option value="business">Business Loan Calculator</option>
 <option value="settlement">Settlement Calculator</option>
 <option value="savings">Savings Help Calculator</option>
@@ -1030,6 +1034,9 @@ body.locked .sidebar-overlay{display:none!important;}
 <input id="agIC" placeholder="IC Number">
 <input id="agContact" placeholder="Contact Number">
 <input id="agDate" type="date">
+<div id="ccServiceFeeWrap" class="full" style="display:none">
+  <input id="ccServiceFee" type="number" placeholder="Credit Card Service Fee (RM)">
+</div>
 <textarea id="agRemarks" class="full" placeholder="Remarks / special terms for this agreement type"></textarea>
 </div>
 <div class="agreement-actions">
@@ -1270,6 +1277,8 @@ function openAgreementForm(type){
   if(formPage) formPage.classList.remove("hidden");
   if(title) title.innerText = currentAgreementType + " Agreement Form";
   if(date && !date.value) date.value = new Date().toISOString().slice(0,10);
+  const ccFeeWrap = document.getElementById("ccServiceFeeWrap");
+  if(ccFeeWrap) ccFeeWrap.style.display = (currentAgreementType === "Credit Card Service" || currentAgreementType === "Credit Card") ? "block" : "none";
   generateAgreementPreview();
 }
 function backToToolsHome(){
@@ -1582,6 +1591,29 @@ const AGREEMENT_CONFIG = {
     ],
     approvalBased: true
   },
+  "Credit Card": {
+    group: "B - Connection / Service-Based Agreement",
+    service: "credit card consultation, customer profile checking, card product matching, document checking, connection to banker / card sales channel, application arrangement and follow-up support.",
+    basis: "Credit Card Connection / Service-Based Charges",
+    chargeTitle: "Credit Card Service Charges",
+    chargeLines: [
+      "Service Fee: RM {{CC_SERVICE_FEE}} Per Case.",
+      "The service fee is payable only when the credit card application is approved by the bank / financial institution.",
+      "If the credit card application is rejected, the Customer does not need to pay the above service fee.",
+      "If the application is approved but the Customer decides not to proceed, cancel, refuse to activate/sign/accept, or abandon the approved card due to personal reason, the case is deemed successfully completed and the agreed service fee remains payable.",
+      "Any bank annual fee, government tax, card issuance fee, late payment charge, finance charge, interest, SST or bank-imposed fee shall be borne by the Customer and is not included in the Company’s service fee."
+    ],
+    special: [
+      "This Credit Card Agreement is a connection / service-based arrangement and is not calculated based on approved loan amount.",
+      "The Company’s role is to assist with consultation, profile checking, card matching, document checking, banker / card channel connection and application follow-up only.",
+      "The Customer understands that credit card approval, credit limit, card type, annual fee waiver, balance transfer, cash advance, instalment plan, promo rate, reward points and card benefits are fully subject to the bank / financial institution’s final decision.",
+      "The Customer must not bypass the Company and directly deal with, reuse or transfer any banker, card sales contact, introducer, channel or connection introduced by the Company for the same or related credit card application without written consent.",
+      "If the Customer proceeds through the introduced connection / channel or receives approval / activation after the Company has started the arrangement, any agreed service fee or connection fee remains payable within twelve (12) hours upon request or notification by the Company.",
+      "If the Customer cancels, delays, refuses to submit documents, changes to another channel, or uses the Company’s introduced connection without informing the Company after the work has started, the Company reserves the right to claim any agreed service fee, connection fee, consultation fee, losses, damages or commission loss where applicable.",
+      "The Customer remains responsible for the proper use of the credit card, repayment, outstanding balance, minimum payment, annual fee, interest, finance charges, cash advance charges and all bank-imposed charges after approval / activation."
+    ],
+    approvalBased: false
+  },
   "Business Loan": {
     group: "A - Approval-Based Agreement",
     service: "business loan consultation, company profile review, document checking, bank matching, application arrangement and follow-up support.",
@@ -1686,7 +1718,7 @@ const AGREEMENT_CONFIG = {
     ],
     approvalBased: false
   }
-}; function agreementConfig(type){ return AGREEMENT_CONFIG[type] || AGREEMENT_CONFIG["Personal Loan"];
+}; function agreementConfig(type){ if(type === "Credit Card Service") return AGREEMENT_CONFIG["Credit Card"]; return AGREEMENT_CONFIG[type] || AGREEMENT_CONFIG["Personal Loan"];
 } function serviceDescription(type){ return agreementConfig(type).service;
 } function parseAmount(v){ const n = Number(String(v||"").replace(/[^0-9.]/g,"")); return isNaN(n) ? 0 : n;
 } function moneyDisplay(v){ const n = parseAmount(v); if(n > 0) return "RM " + n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); return "________________";
@@ -1709,7 +1741,7 @@ const AGREEMENT_CONFIG = {
   "Electronic, typed, digital or computer-generated signatures / acknowledgements shall be considered valid for this agreement.",
   "This agreement is generated by computer system. No company signature is required. The agreement remains valid once the Customer has acknowledged and signed / typed the signature below."
 ]; return common.concat(cfg.special || []);
-} function chargeSectionHtml(type){ const cfg = agreementConfig(type); const chargeLines = (cfg.chargeLines || []).map(x=>`<li>${safe(x)}</li>`).join(""); const estimate = estimateCharge(type); return ` <h3>${safe(cfg.chargeTitle)}</h3>
+} function chargeSectionHtml(type){ const cfg = agreementConfig(type); const rawFee = document.getElementById("ccServiceFee")?.value || ""; const ccFee = rawFee ? Number(rawFee).toLocaleString() : "____________"; const chargeLines = (cfg.chargeLines || []).map(x=>String(x).replace("{{CC_SERVICE_FEE}}", ccFee)).map(x=>`<li>${safe(x)}</li>`).join(""); const estimate = estimateCharge(type); return ` <h3>${safe(cfg.chargeTitle)}</h3>
 <ul>${chargeLines}</ul> ${estimate ? `<p><b>${safe(estimate)}</b></p>` : ""} <p><b>Charging Basis:</b> ${safe(cfg.basis)}</p> `;
 } function generateAgreementPreview(){ const name = agCustomerName.value || "________________________"; const ic = agIC.value || "________________________"; const contact = agContact.value || "________________"; const date = agDate.value || "________________"; const remarks = agRemarks.value ? safe(agRemarks.value).replace(/\n/g,"<br>") : "No special remarks."; const termsHtml = agreementTerms(currentAgreementType).map(t=>`<li>${safe(t)}</li>`).join(""); agreementPreview.innerHTML = ` <h2>JC WEALTH ADVISORY</h2>
 <div style="color:#7b6b60;font-weight:850">${safe(currentAgreementType).toUpperCase()} AGREEMENT</div>
@@ -1718,6 +1750,7 @@ const AGREEMENT_CONFIG = {
 <div><b>IC Number</b><br>${safe(ic)}</div>
 <div><b>Contact Number</b><br>${safe(contact)}</div>
 <div><b>Date</b><br>${safe(date)}</div>
+${(currentAgreementType === "Credit Card Service" || currentAgreementType === "Credit Card") ? `<div><b>Credit Card Service Fee</b><br>RM ${safe((document.getElementById("ccServiceFee")?.value ? Number(document.getElementById("ccServiceFee")?.value).toLocaleString() : "____________"))}</div>` : ""}
 </div>
 <h3>Service Scope</h3>
 <p>The Customer appoints the Company to assist with ${safe(serviceDescription(currentAgreementType))}</p> ${chargeSectionHtml(currentAgreementType)} <h3>General Terms & Conditions</h3>
@@ -1815,16 +1848,17 @@ const AGREEMENT_CONFIG = {
 
 </head><body><div class="print-paper">${content}</div>
 </body></html>`); w.document.close(); w.focus(); setTimeout(()=>{ w.print(); }, 300);
-} function clearAgreementForm(){ ["agCustomerName","agIC","agContact","agCustomerSignature","agRemarks"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); document.getElementById("agDate").value = new Date().toISOString().slice(0,10); generateAgreementPreview();
+} function clearAgreementForm(){ ["agCustomerName","agIC","agContact","agCustomerSignature","agRemarks","ccServiceFee"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); document.getElementById("agDate").value = new Date().toISOString().slice(0,10); generateAgreementPreview();
 } function calcAgreementTierFee(amt){ let fee=0; if(amt<=0) return 0; if(amt<=50000) fee=amt*.15; else if(amt<=100000) fee=amt*.10; else fee=amt*.08; return Math.max(fee,2000); }
 function rmCalc(n){ return "RM " + Number(n||0).toLocaleString("en-MY",{minimumFractionDigits:0,maximumFractionDigits:0}); }
 function getFeeTypeLabel(value){ const el=document.getElementById("feeType"); if(!el) return value; const opt=el.options[el.selectedIndex]; return opt ? opt.text : value; }
-function updateIncomeCalcHint(){ const type=document.getElementById("feeType")?.value || "personal"; const amountEl=document.getElementById("amount"); const label=document.getElementById("amountLabel"); const hint=document.getElementById("feeHint"); const cashWrap=document.getElementById("cashoutApprovedWrap"); const noAmountNeeded=["settlement"].includes(type); if(cashWrap) cashWrap.style.display=(type==="cashout_no_panel") ? "block" : "none"; if(amountEl){ amountEl.disabled=noAmountNeeded; amountEl.placeholder = noAmountNeeded ? "No amount needed" : (type.includes("cashout") ? "Enter approved cashout amount" : (type.includes("refinance") ? "Enter total approved loan amount" : "Example: 200000")); }
- if(label){ label.innerText = type.includes("cashout") ? "Approved Cashout Amount" : (type.includes("refinance") ? "Total Approved Loan Amount" : "Approved / Savings Amount"); }
- const hintMap={ personal:"Personal Loan follows tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.", business:"Business Loan follows back Personal Loan tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.", settlement:"Settlement charges are blank first / coming soon.", savings:"Savings Help: RM20,000 and below = RM2,000; above RM20,000 = RM3,000.", refinance_no_panel:"Refinance calculator = total approved loan amount x 2%.", cashout_panel:"Refinance Cashout using our panel lawyer = cashout amount x 2%, minimum RM2,000.", cashout_no_panel:"Refinance Cashout not using our panel lawyer = cashout amount x 2%, minimum RM2,000 + total approved loan amount x 2%."}; if(hint) hint.innerText=hintMap[type]||""; }
+function updateIncomeCalcHint(){ const type=document.getElementById("feeType")?.value || "personal"; const amountEl=document.getElementById("amount"); const label=document.getElementById("amountLabel"); const hint=document.getElementById("feeHint"); const cashWrap=document.getElementById("cashoutApprovedWrap"); const noAmountNeeded=["settlement","credit_card"].includes(type); if(cashWrap) cashWrap.style.display=(type==="cashout_no_panel") ? "block" : "none"; if(amountEl){ amountEl.disabled=noAmountNeeded; amountEl.placeholder = noAmountNeeded ? "No amount needed" : (type==="credit_card" ? "No amount needed / insert agreed fee in remarks" : (type.includes("cashout") ? "Enter approved cashout amount" : (type.includes("refinance") ? "Enter total approved loan amount" : "Example: 200000"))); }
+ if(label){ label.innerText = type.includes("cashout") ? "Approved Cashout Amount" : (type==="credit_card" ? "Agreed Fee / Connection Fee (Remarks)" : (type.includes("refinance") ? "Total Approved Loan Amount" : "Approved / Savings Amount")); }
+ const hintMap={ personal:"Personal Loan follows tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.", credit_card:"Credit Card is separate: no loan-tier percentage. Insert any agreed connection / service fee inside Remarks before processing.", business:"Business Loan follows back Personal Loan tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.", settlement:"Settlement charges are blank first / coming soon.", savings:"Savings Help: RM20,000 and below = RM2,000; above RM20,000 = RM3,000.", refinance_no_panel:"Refinance calculator = total approved loan amount x 2%.", cashout_panel:"Refinance Cashout using our panel lawyer = cashout amount x 2%, minimum RM2,000.", cashout_no_panel:"Refinance Cashout not using our panel lawyer = cashout amount x 2%, minimum RM2,000 + total approved loan amount x 2%."}; if(hint) hint.innerText=hintMap[type]||""; }
 function calcFee(){ const type=document.getElementById("feeType")?.value || "personal"; const amt=Number(document.getElementById("amount")?.value||0); const approvedAmt=Number(document.getElementById("approvedAmount")?.value||0); let fee=0, formula="-", condition="-", note="";
  if(type==="personal"){ fee=calcAgreementTierFee(amt); formula=amt<=50000?"15%":(amt<=100000?"10%":"8%"); condition="Minimum RM2,000"; note="Personal Loan fee follows Agreement tier charges."; }
  if(type==="business"){ fee=calcAgreementTierFee(amt); formula=amt<=50000?"15%":(amt<=100000?"10%":"8%"); condition="Follow Personal Loan charges; minimum RM2,000"; note="Business Loan charges follow back Personal Loan calculation."; }
+ if(type==="credit_card"){ fee=0; formula="Manual / As agreed"; condition="No loan-tier percentage; insert agreed fee in Remarks"; note="Credit Card charges are separate from loan percentage charges. Use Remarks / Special Terms to state the agreed connection or service fee."; }
  if(type==="settlement"){ fee=0; formula="Blank"; condition="Charges coming soon / insert manually"; note="Settlement calculator kept blank first."; }
  if(type==="savings"){ fee=amt<=20000?2000:3000; formula=amt<=20000?"RM20,000 and below":"Above RM20,000"; condition=amt<=20000?"Fee RM2,000":"Fee RM3,000"; note=amt<=20000?"Savings Help amount is RM20,000 and below, fee RM2,000.":"Savings Help amount is above RM20,000, fee RM3,000."; }
  if(type==="refinance_no_panel"){ fee=amt*.02; formula="Total approved loan amount x 2%"; condition="Refinance service fee"; note="Refinance fee calculated from total approved loan amount."; }
