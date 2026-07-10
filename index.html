@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Optimized by ChatGPT: Safe cleanup v1 | kept original functions/design, removed duplicate CSS, added minor stability patch -->
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -132,45 +134,7 @@ td{ padding:14px 16px; border-bottom:1px solid #f1e7d6; vertical-align:top; font
 .bank-card-preview{ margin-top:12px;color:#7b6b60;font-size:13px; line-height:1.6;white-space:pre-line;
 }
 .bank-card-footer{ margin-top:14px;color:#9a5f51;font-size:12px;font-weight:950;
-} /* Extra compact print mode - target 1 page */
-@media print{ @page{size:A4;margin:8mm!important;} #agreementPreview{ max-width:none!important; width:100%!important; padding:0!important; margin:0!important; border:0!important; box-shadow:none!important; font-size:10.2px!important; line-height:1.2!important; } #agreementPreview h2{font-size:17px!important;margin:0 0 2px!important;} #agreementPreview h3{font-size:11.5px!important;margin:7px 0 3px!important;padding-bottom:2px!important;} #agreementPreview .meta{grid-template-columns:repeat(4,1fr)!important;gap:4px!important;margin:7px 0!important;} #agreementPreview .meta div{padding:4px 5px!important;border-radius:6px!important;font-size:9.5px!important;} #agreementPreview ul{margin:4px 0!important;padding-left:13px!important;} #agreementPreview li{margin-bottom:1.5px!important;} #agreementPreview table{font-size:9.5px!important;margin:3px 0!important;} #agreementPreview th,#agreementPreview td{padding:3px 5px!important;line-height:1.15!important;} #agreementPreview p{margin:3px 0!important;} #agreementPreview .signature-box{margin-top:6px!important;padding-top:4px!important;gap:10px!important;} #agreementPreview .signature-line{min-height:30px!important;padding-bottom:3px!important;}
-} @media(max-width:1000px){.app{flex-direction:column}.sidebar{width:100%}.cards,.service-grid,.tool-grid,.filters{grid-template-columns:1fr}.topbar{flex-direction:column}} .agreement-launch{ display:block;
-}
-.agreement-type-panel{ padding:20px;
-}
-.agreement-type-panel .panel-head{ margin-bottom:14px;
-}
-.agreement-type-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
-}
-.agreement-type-card{ background:linear-gradient(145deg,rgba(255,255,255,.96),#f4c6c0); border:1px solid rgba(200,162,74,.30); border-radius:18px; padding:14px; min-height:122px; box-shadow:0 10px 22px rgba(72,47,28,.07); cursor:pointer; transition:.22s;
-}
-.agreement-type-card:hover{ transform:translateY(-2px); border-color:rgba(201,135,120,.65); box-shadow:0 16px 30px rgba(120,80,32,.13);
-}
-.agreement-type-card .icon{ width:36px;height:36px;border-radius:13px; display:flex;align-items:center;justify-content:center; background:linear-gradient(135deg,#5b4232,#c98778); color:#fff1ee;font-size:16px;margin-bottom:10px;
-}
-.agreement-type-card h3{margin:0 0 5px;color:#2a1c15;font-size:16px}
-.agreement-type-card p{margin:0;color:#7b6b60;font-size:12px;line-height:1.38}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.form-grid .full{grid-column:1/-1}
-textarea{ width:100%;border:1px solid var(--line);border-radius:15px; padding:13px 14px;background:#fffdf8;outline:none;color:#2a1c15; min-height:92px;resize:vertical;font-family:inherit;
-}
-.agreement-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.agreement-preview{ background:#fffdf8; border:1px solid rgba(234,223,202,.95); border-radius:24px; padding:28px; box-shadow:var(--shadow); line-height:1.65;
-}
-.agreement-preview h2{ margin:0 0 8px; font-family:Georgia,'Times New Roman',serif; color:#2a1c15;
-}
-.agreement-preview h3{ margin:24px 0 10px; color:#8d5a52; border-bottom:1px solid #ead6d2; padding-bottom:8px;
-}
-.agreement-preview .meta{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0;
-}
-.agreement-preview .meta div{ border:1px solid #ead6d2; background:#fff7f5; border-radius:14px; padding:10px 12px;
-}
-.agreement-preview ul{padding-left:20px}
-.signature-box{ margin-top:22px;border-top:1px solid #ead6d2;padding-top:18px; display:grid;grid-template-columns:1fr 1fr;gap:18px;
-}
-.signature-line{ min-height:70px;border-bottom:1px solid #9c8a7b; display:flex;align-items:flex-end;padding-bottom:8px;color:#7b6b60;
-}
-/* Agreement form compact sizing */
+} /* Agreement form compact sizing */
 #agreementFormPage .panel.no-print{ max-width:980px; margin:0 auto 16px; padding:18px; border-radius:20px;
 }
 #agreementFormPage .panel-head{margin-bottom:14px}
@@ -247,60 +211,7 @@ textarea{ width:100%;border:1px solid var(--line);border-radius:15px; padding:13
 .amort-toast{position:fixed;right:22px;bottom:22px;background:#3b2a20;color:#fff1ee;border:1px solid rgba(201,135,120,.45);box-shadow:0 12px 26px rgba(72,47,28,.18);border-radius:14px;padding:12px 16px;display:none;z-index:999;font-size:13px;font-weight:900;}
 @media(max-width:1100px){.amort-layout{grid-template-columns:1fr}.amort-summary-grid{grid-template-columns:repeat(2,1fr)}.amort-hero-inner{align-items:flex-start}.amort-soft-badge{display:none}}
 @media(max-width:620px){.amort-summary-grid{grid-template-columns:1fr}.amort-actions{grid-template-columns:1fr}.amort-actions .btn-wide{grid-column:auto}.amort-table-tools{flex-direction:column}.amort-hero{padding:20px}.amort-hero h2{font-size:24px}}
-@media print{.sidebar,.topbar,.amort-hero,.amort-input-panel,.amort-table-actions,.amort-view-toggle,.amort-note{display:none!important}.app,.main,#tools,#amortizationPage{display:block!important}.amort-layout{display:block!important}.amort-output-panel{box-shadow:none!important;border:0!important;padding:0!important}.amort-table-wrap{max-height:none!important;overflow:visible!important}.amort-table{min-width:100%!important}.amort-table th,.amort-table td{font-size:10px!important;padding:6px!important}} /* Debt Conso + Check Eligibility - Soft Champagne Integration */
-.tool-soft-hero{background:linear-gradient(135deg,rgba(255,253,248,.96),#f4c6c0);border:1px solid rgba(201,135,120,.28);border-radius:24px;padding:22px;margin-bottom:18px;box-shadow:0 14px 28px rgba(72,47,28,.07);position:relative;overflow:hidden;}
-.tool-soft-hero:before{content:"";position:absolute;right:-60px;top:-70px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(241,210,199,.38),transparent 68%);}
-.tool-soft-hero h2{margin:0;font-family:Georgia,'Times New Roman',serif;color:#2a1c15;font-size:28px;}
-.tool-soft-hero p{margin:6px 0 0;color:#7b6b60;font-size:13px;line-height:1.5;}
-.tool-soft-kicker{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(201,135,120,.35);background:#fff7f5;color:#8f544c;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:950;margin-bottom:12px;}
-.tool-layout-2{display:grid;grid-template-columns:1.02fr .98fr;gap:18px;align-items:start;}
-.tool-card-soft{background:rgba(255,255,255,.9);border:1px solid rgba(234,223,202,.95);border-radius:22px;padding:20px;box-shadow:0 14px 30px rgba(80,55,32,.08);backdrop-filter:blur(12px);}
-.tool-card-soft h3{margin:0 0 14px;color:#2a1c15;font-size:18px;display:flex;gap:9px;align-items:center;}
-.tool-card-soft h3:before{content:"";width:5px;height:20px;border-radius:999px;background:#c98778;box-shadow:0 0 12px rgba(200,162,74,.3);}
-.tool-quick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
-.tool-soft-btn{border:1px solid #f1d2c7;background:#fff7f5;color:#8d5a52;border-radius:13px;padding:10px 12px;font-size:13px;font-weight:950;cursor:pointer;}
-.tool-soft-btn.primary{background:linear-gradient(135deg,#5b4232,#c98778,#f1d2c7);color:#fff7f5;box-shadow:0 10px 22px rgba(120,80,32,.11);}
-.tool-soft-btn.danger{color:#b42318;border-color:#efc2bd;background:#fff8f6;}
-.tool-soft-btn.full{width:100%;margin-top:12px;}
-.tool-soft-input,.tool-soft-select{width:100%;border:1px solid #ead6d2;border-radius:13px;padding:11px 12px;background:#fffdf8;color:#2a1c15;outline:none;font-size:13.5px;text-align:left;}
-.tool-soft-input.center{text-align:center;}
-.tool-soft-input:focus,.tool-soft-select:focus{border-color:#c98778;box-shadow:0 0 0 4px rgba(200,162,74,.12);background:white;}
-.tool-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.tool-form-grid.three{grid-template-columns:repeat(3,1fr);}
-.tool-field label{display:block;font-size:11px;color:#8d5a52;text-transform:uppercase;letter-spacing:.04em;font-weight:950;margin-bottom:6px;}
-.tool-table-wrap{overflow:auto;border-radius:16px;border:1px solid #f1e7d6;background:#fff;}
-.tool-table{width:100%;border-collapse:collapse;min-width:650px;}
-.tool-table th{background:#fff0ec;color:#8d5a52;text-transform:uppercase;font-size:11px;padding:11px;text-align:center;}
-.tool-table td{border-bottom:1px solid #f1e7d6;padding:9px;text-align:center;color:#3b2a20;font-size:13px;}
-.tool-table tfoot td{background:#fff7f5;color:#8f544c;font-weight:950;}
-.tool-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
-.tool-kpi{background:#fff;border:1px solid #ead6d2;border-radius:18px;padding:16px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 22px rgba(80,55,32,.06);}
-.tool-kpi.main{background:linear-gradient(135deg,#fffdf8,#fde4dc);border-color:rgba(201,135,120,.45);}
-.tool-kpi .ico{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#fff1ee,#d99a8f);display:grid;place-items:center;font-size:20px;flex:0 0 auto;}
-.tool-kpi small{display:block;font-size:10px;text-transform:uppercase;color:#7b6b60;font-weight:950;}
-.tool-kpi h2{margin:4px 0 0;color:#9a5f51;font-size:20px;}
-.tool-green{color:#15803d!important;}
-.debt-summary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-.debt-sum{border:1px solid #ead6d2;border-radius:16px;background:#fffefb;padding:13px;min-height:78px;}
-.debt-sum small{display:block;color:#7b6b60;font-size:10px;text-transform:uppercase;font-weight:900;line-height:1.25;}
-.debt-sum h3{margin:8px 0 0!important;font-size:17px;color:#9a5f51;display:block;}
-.debt-conclusion{margin-top:14px;border:1px solid #ead6d2;background:#fff7f5;border-radius:16px;padding:14px;color:#5b4232;font-size:13px;line-height:1.55;}
-.elig-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.elig-toggle-card{background:#fffdf8;border:1px solid #ead6d2;border-radius:18px;padding:16px;cursor:pointer;transition:.2s;}
-.elig-toggle-card.active{border-color:#c98778;background:#fdebe6;box-shadow:0 0 0 3px rgba(200,162,74,.12);}
-.elig-toggle-card b{display:block;color:#8d5a52;font-size:15px;margin-bottom:4px;}
-.elig-toggle-card span{color:#7b6b60;font-size:12px;line-height:1.4;}
-.elig-result-main{background:linear-gradient(135deg,#fffdf8,#c88f8a);border:1px solid rgba(201,135,120,.38);border-radius:20px;padding:20px;margin-bottom:14px;}
-.elig-loan-title{font-size:12px;color:#7b6b60;text-transform:uppercase;font-weight:950;}
-.elig-loan-amount{font-size:38px;font-weight:950;color:#9a5f51;margin-top:6px;}
-.elig-result-list{display:grid;gap:10px;}
-.elig-result-item{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid #f1e7d6;border-radius:14px;background:#fffdf8;}
-.elig-result-item span{color:#7b6b60;font-size:13px;}.elig-result-item b{text-align:right;color:#2a1c15;}
-.elig-sub-card,.elig-applicant-card{margin-top:12px;border:1px solid #ead6d2;border-radius:18px;background:#fff7f5;padding:15px;}
-.elig-upload-box{border:1.5px dashed rgba(201,135,120,.58);border-radius:18px;background:#fff1ee;padding:17px;text-align:center;color:#8d5a52;font-weight:900;cursor:pointer;margin-bottom:12px;}
-.elig-note{margin-top:12px;color:#8a7a6f;font-size:12px;line-height:1.45;}
-.elig-debug{display:none;margin-top:12px;max-height:130px;overflow:auto;white-space:pre-wrap;background:#fffdf8;border:1px solid #ead6d2;border-radius:14px;padding:10px;color:#7b6b60;font-size:11px;}
-@media(max-width:1100px){.tool-layout-2,.tool-kpi-grid,.debt-summary-grid{grid-template-columns:1fr}.tool-form-grid,.tool-form-grid.three,.elig-toggle{grid-template-columns:1fr}.elig-loan-amount{font-size:30px}} /* HARD FIX: every tool page must be isolated */
+@media print{.sidebar,.topbar,.amort-hero,.amort-input-panel,.amort-table-actions,.amort-view-toggle,.amort-note{display:none!important}.app,.main,#tools,#amortizationPage{display:block!important}.amort-layout{display:block!important}.amort-output-panel{box-shadow:none!important;border:0!important;padding:0!important}.amort-table-wrap{max-height:none!important;overflow:visible!important}.amort-table{min-width:100%!important}.amort-table th,.amort-table td{font-size:10px!important;padding:6px!important}} /* HARD FIX: every tool page must be isolated */
 .hidden{display:none!important;}
 #tools > div.hidden,
 #toolPlaceholderPage.hidden,
@@ -380,6 +291,33 @@ body.locked .sidebar-overlay{display:none!important;}
 .pl-detail-item p{margin:0;white-space:pre-line;line-height:1.55;color:#2a1c15;}
 @media(max-width:1250px){.pl-bank-grid{grid-template-columns:repeat(2,minmax(240px,1fr));}.pl-toolbar{grid-template-columns:1fr;}}
 @media(max-width:680px){.pl-bank-grid,.pl-detail-list{grid-template-columns:1fr}.pl-bank-head h3{font-size:18px}.pl-detail-hero{align-items:flex-start}.pl-detail-hero h2{font-size:26px}}
+
+/* Custom Agreement Charges - added for non-fixed agreement types */
+.custom-charge-wrap{
+  border:1px solid rgba(201,135,120,.28);
+  background:linear-gradient(135deg,#fffdf8,#fff1ee);
+  border-radius:18px;
+  padding:14px;
+}
+.custom-charge-head{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  margin-bottom:10px;
+}
+.custom-charge-head b{color:#8d5a52;font-size:13px;}
+.custom-charge-head span{color:#7b6b60;font-size:12px;}
+.custom-charge-row{
+  display:grid;grid-template-columns:1.2fr .55fr auto;gap:10px;align-items:center;margin-top:9px;
+}
+.custom-charge-row input{background:#fffdf8;}
+.custom-charge-remove{
+  border:1px solid rgba(180,35,24,.24);background:#fff8f6;color:#b42318;
+  border-radius:12px;padding:10px 12px;font-weight:950;cursor:pointer;
+}
+.custom-charge-total{
+  margin-top:10px;padding:10px 12px;border-radius:14px;background:#fff7f5;
+  border:1px solid rgba(201,135,120,.20);color:#8d5a52;font-weight:950;text-align:right;
+}
+@media(max-width:720px){.custom-charge-row{grid-template-columns:1fr}.custom-charge-remove{width:100%;}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -681,6 +619,23 @@ body.locked .sidebar-overlay{display:none!important;}
 .resource-hero{position:relative;overflow:hidden;border-radius:28px;padding:26px;margin-bottom:18px;background:radial-gradient(circle at 90% 12%,rgba(241,210,199,.48),transparent 32%),linear-gradient(135deg,#fffdf8,#f4c6c0);border:1px solid rgba(201,135,120,.28);box-shadow:0 16px 35px rgba(80,55,32,.10)}
 .resource-hero h2{margin:0;font-size:30px;color:#2a1c15;font-family:Georgia,'Times New Roman',serif}.resource-hero p{margin:7px 0 0;color:#7b6b60;line-height:1.5}.resource-kicker{display:inline-flex;align-items:center;gap:8px;background:#fff7f5;border:1px solid rgba(201,135,120,.35);color:#8f544c;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:950;margin-bottom:12px}.resource-lock{background:rgba(255,255,255,.86);border:1px solid rgba(234,223,202,.95);border-radius:24px;box-shadow:var(--shadow);padding:26px;max-width:560px;margin:0 auto;text-align:center}.resource-lock-icon{width:72px;height:72px;border-radius:24px;display:grid;place-items:center;margin:0 auto 14px;background:linear-gradient(135deg,#5b4232,#c98778,#f1d2c7);color:#fff7f5;font-size:30px;box-shadow:0 16px 32px rgba(120,80,32,.16)}.resource-lock h3{margin:0 0 8px;color:#2a1c15;font-family:Georgia,'Times New Roman',serif;font-size:24px}.resource-lock p{margin:0 0 16px;color:#7b6b60}.resource-password-row{display:flex;gap:10px}.resource-password-row input{height:50px}.resource-error{min-height:20px;color:#b42318;font-size:13px;font-weight:900;margin-top:10px}.resource-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}.resource-unlocked{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,135,120,.32);background:#fff7f5;color:#8d5a52;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:950}.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(230px,1fr));gap:18px}.resource-card{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.94),#f4c6c0);border:1px solid rgba(201,135,120,.28);border-radius:24px;padding:20px;box-shadow:0 14px 30px rgba(72,47,28,.08);transition:.22s;cursor:pointer;min-height:190px;display:flex;flex-direction:column}.resource-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(120,80,32,.15);border-color:rgba(201,135,120,.60)}.resource-card:before{content:"";position:absolute;right:-34px;top:-34px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.30)}.resource-card .icon{width:50px;height:50px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#5b4232,#c98778);color:#fff7f5;font-size:23px;margin-bottom:14px;position:relative;z-index:1}.resource-card h3{position:relative;z-index:1;margin:0 0 8px;color:#2a1c15;font-size:18px}.resource-card p{position:relative;z-index:1;margin:0;color:#7b6b60;line-height:1.45;font-size:13px;flex:1}.resource-card .open-drive{position:relative;z-index:1;margin-top:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;padding:12px 14px;background:linear-gradient(135deg,#5b4232,#c98778,#f1d2c7);color:#fff7f5;font-weight:950;font-size:13px;box-shadow:0 10px 20px rgba(120,80,32,.12)}.resource-note{margin-top:16px;border:1px dashed rgba(201,135,120,.42);background:#fff7f5;border-radius:18px;padding:14px;color:#6d5c4d;font-size:12.5px;line-height:1.55}@media(max-width:1100px){.resource-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.resource-grid{grid-template-columns:1fr}.resource-password-row{flex-direction:column}.resource-hero h2{font-size:25px}}
 </style>
+
+<!-- Kiki Safe Optimization Patch v1 - non-breaking cleanup -->
+<style>
+/* safer focus + smoother CRM feel */
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(201,135,120,.35);outline-offset:2px;}
+.table-wrap table th,.amort-table th,.tool-table th{position:sticky;top:0;z-index:2;}
+.table-wrap{max-width:100%;}
+iframe[loading="lazy"]{content-visibility:auto;}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important;}}
+@media(max-width:720px){.main{padding:18px 14px}.panel,.card{border-radius:18px}.topbar h1{font-size:24px}.service-grid,.cards,.tool-grid{gap:12px}}
+</style>
+<script>
+/* Small runtime guard: keeps one tool error from blanking the whole system */
+window.addEventListener('error',function(e){console.warn('[JC Hub guarded error]', e.message);});
+</script>
+
+<!-- Function-only patch: service cards are now clickable; rose-gold design preserved. -->
 </head>
 <body class="locked">
 <div id="loginGate" class="login-gate">
@@ -756,13 +711,13 @@ body.locked .sidebar-overlay{display:none!important;}
 <button class="btn secondary" onclick="refreshCurrentPage()">Refresh</button>
 </div>
 <div class="service-grid">
-<div class="service-card"><div class="service-icon">👤</div><h3>Personal Loan Service</h3><p>Personal financing consultation, salary profile review, commitment planning and application support.</p><span class="tag">Agreement + Service</span></div>
-<div class="service-card"><div class="service-icon">📋</div><h3>Settlement Service</h3><p>Settlement planning, restructuring support, document checking and repayment arrangement guidance.</p><span class="tag">Agreement + Service</span></div>
-<div class="service-card"><div class="service-icon">💰</div><h3>Savings Help Service</h3><p>Saving fund preparation, source of fund support, profile readiness and approval preparation.</p><span class="tag">Agreement + Service</span></div>
-<div class="service-card"><div class="service-icon">🏠</div><h3>Refinance Service</h3><p>Mortgage restructuring, lower rate planning, debt consolidation and monthly saving analysis.</p><span class="tag">Agreement + Service</span></div>
-<div class="service-card"><div class="service-icon">💵</div><h3>Refinance Cashout Service</h3><p>Cash-out planning, property value checking, loan structure comparison and document preparation.</p><span class="tag">Agreement + Service</span></div>
-<div class="service-card"><div class="service-icon">🧾</div><h3>Consultation Fees Service</h3><p>Consultation fee calculation, fee schedule explanation and customer agreement preparation.</p><span class="tag">Agreement + Service</span></div>
-<div class="service-card"><div class="service-icon">💼</div><h3>Business Loan Service</h3><p>Business financing consultation, company profile checking, SSM support and bank submission preparation.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Personal Loan')" style="cursor:pointer"><div class="service-icon">👤</div><h3>Personal Loan Service</h3><p>Personal financing consultation, salary profile review, commitment planning and application support.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Settlement')" style="cursor:pointer"><div class="service-icon">📋</div><h3>Settlement Service</h3><p>Settlement planning, restructuring support, document checking and repayment arrangement guidance.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Savings Help')" style="cursor:pointer"><div class="service-icon">💰</div><h3>Savings Help Service</h3><p>Saving fund preparation, source of fund support, profile readiness and approval preparation.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Refinance')" style="cursor:pointer"><div class="service-icon">🏠</div><h3>Refinance Service</h3><p>Mortgage restructuring, lower rate planning, debt consolidation and monthly saving analysis.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Refinance Cashout')" style="cursor:pointer"><div class="service-icon">💵</div><h3>Refinance Cashout Service</h3><p>Cash-out planning, property value checking, loan structure comparison and document preparation.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Consultation Fees')" style="cursor:pointer"><div class="service-icon">🧾</div><h3>Consultation Fees Service</h3><p>Consultation fee calculation, fee schedule explanation and customer agreement preparation.</p><span class="tag">Agreement + Service</span></div>
+<div class="service-card" onclick="openAgreementForm('Business Loan')" style="cursor:pointer"><div class="service-icon">💼</div><h3>Business Loan Service</h3><p>Business financing consultation, company profile checking, SSM support and bank submission preparation.</p><span class="tag">Agreement + Service</span></div>
 <div class="service-card" onclick="openAgreementForm('Credit Card Service')" style="cursor:pointer"><div class="service-icon">💳</div><h3>Credit Card Service</h3><p>Credit card application consultation, balance transfer planning, profile review and bank submission assistance.</p><span class="tag">Agreement + Service</span></div>
 <div class="service-card"><div class="service-icon">🛡️</div><h3>Insurance Service</h3><p>Medical card, life protection, mortgage protection and financial risk planning support.</p><span class="tag">Protection</span></div>
 </div>
@@ -1076,6 +1031,17 @@ body.locked .sidebar-overlay{display:none!important;}
 <div id="ccServiceFeeWrap" class="full" style="display:none">
   <input id="ccServiceFee" type="number" placeholder="Credit Card Service Fee (RM)">
 </div>
+<div id="customChargeWrap" class="custom-charge-wrap full" style="display:none">
+  <div class="custom-charge-head">
+    <div>
+      <b>Custom Charges</b><br>
+      <span>Add your own charge items for this agreement.</span>
+    </div>
+    <button type="button" class="btn secondary" onclick="addCustomChargeRow()">+ Add Charge</button>
+  </div>
+  <div id="customChargeRows"></div>
+  <div id="customChargeTotal" class="custom-charge-total">Total: RM 0.00</div>
+</div>
 <textarea id="agRemarks" class="full" placeholder="Remarks / special terms for this agreement type"></textarea>
 </div>
 <div class="agreement-actions">
@@ -1318,6 +1284,7 @@ function openAgreementForm(type){
   if(date && !date.value) date.value = new Date().toISOString().slice(0,10);
   const ccFeeWrap = document.getElementById("ccServiceFeeWrap");
   if(ccFeeWrap) ccFeeWrap.style.display = (currentAgreementType === "Credit Card Service" || currentAgreementType === "Credit Card") ? "block" : "none";
+  refreshCustomChargeVisibility();
   generateAgreementPreview();
 }
 function backToToolsHome(){
@@ -1757,7 +1724,59 @@ const AGREEMENT_CONFIG = {
     ],
     approvalBased: false
   }
-}; function agreementConfig(type){ if(type === "Credit Card Service") return AGREEMENT_CONFIG["Credit Card"]; return AGREEMENT_CONFIG[type] || AGREEMENT_CONFIG["Personal Loan"];
+}; 
+const FIXED_AGREEMENT_CHARGE_TYPES = new Set(["Personal Loan", "Business Loan", "Credit Card", "Credit Card Service", "Savings Help"]);
+function usesCustomCharges(type){ return !FIXED_AGREEMENT_CHARGE_TYPES.has(type || currentAgreementType); }
+function refreshCustomChargeVisibility(){
+  const wrap = document.getElementById("customChargeWrap");
+  const rows = document.getElementById("customChargeRows");
+  if(!wrap) return;
+  const show = usesCustomCharges(currentAgreementType);
+  wrap.style.display = show ? "block" : "none";
+  if(show && rows && rows.children.length === 0){ addCustomChargeRow("Service Charge", ""); }
+  updateCustomChargeTotal();
+}
+function addCustomChargeRow(desc="", amount=""){
+  const rows = document.getElementById("customChargeRows");
+  if(!rows) return;
+  const row = document.createElement("div");
+  row.className = "custom-charge-row";
+  row.innerHTML = `<input class="custom-charge-desc" placeholder="Charge item / Description" value="${safeAttr(desc)}" oninput="updateCustomChargeTotal()">
+  <input class="custom-charge-amount" type="number" step="0.01" placeholder="Amount (RM)" value="${safeAttr(amount)}" oninput="updateCustomChargeTotal()">
+  <button type="button" class="custom-charge-remove" onclick="removeCustomChargeRow(this)">Remove</button>`;
+  rows.appendChild(row);
+  updateCustomChargeTotal();
+}
+function removeCustomChargeRow(btn){
+  const row = btn?.closest?.(".custom-charge-row");
+  if(row) row.remove();
+  const rows = document.getElementById("customChargeRows");
+  if(rows && rows.children.length === 0) addCustomChargeRow("", "");
+  updateCustomChargeTotal();
+}
+function getCustomCharges(){
+  return Array.from(document.querySelectorAll("#customChargeRows .custom-charge-row")).map(row=>{
+    const desc = row.querySelector(".custom-charge-desc")?.value?.trim() || "Service Charge";
+    const amount = parseAmount(row.querySelector(".custom-charge-amount")?.value || "");
+    return {desc, amount};
+  }).filter(x=>x.desc || x.amount > 0);
+}
+function updateCustomChargeTotal(){
+  const totalEl = document.getElementById("customChargeTotal");
+  if(!totalEl) return;
+  const total = getCustomCharges().reduce((sum,x)=>sum + (x.amount || 0),0);
+  totalEl.textContent = "Total: " + (total > 0 ? moneyDisplay(total) : "RM 0.00");
+}
+function customChargeSectionHtml(){
+  const items = getCustomCharges();
+  const total = items.reduce((sum,x)=>sum + (x.amount || 0),0);
+  const rows = items.length ? items.map((x,i)=>`<tr><td>${i+1}</td><td>${safe(x.desc)}</td><td>${x.amount > 0 ? safe(moneyDisplay(x.amount)) : "To be confirmed"}</td></tr>`).join("") : `<tr><td>1</td><td>Service charge to be confirmed by the Company before processing</td><td>To be confirmed</td></tr>`;
+  return `<h3>Custom Service Charges</h3>
+  <table><thead><tr><th>No.</th><th>Charge Item</th><th>Amount</th></tr></thead><tbody>${rows}</tbody>${total > 0 ? `<tfoot><tr><td colspan="2"><b>Total Payable</b></td><td><b>${safe(moneyDisplay(total))}</b></td></tr></tfoot>` : ""}</table>
+  <p><b>Charging Basis:</b> Custom service charges as agreed / confirmed before processing.</p>
+  <p>The Customer agrees that the above charge item(s) and amount(s) are payable according to the terms of this agreement once the Company has started, arranged, processed, completed or fulfilled the agreed service.</p>`;
+}
+function agreementConfig(type){ if(type === "Credit Card Service") return AGREEMENT_CONFIG["Credit Card"]; return AGREEMENT_CONFIG[type] || AGREEMENT_CONFIG["Personal Loan"];
 } function serviceDescription(type){ return agreementConfig(type).service;
 } function parseAmount(v){ const n = Number(String(v||"").replace(/[^0-9.]/g,"")); return isNaN(n) ? 0 : n;
 } function moneyDisplay(v){ const n = parseAmount(v); if(n > 0) return "RM " + n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); return "________________";
@@ -1780,7 +1799,14 @@ const AGREEMENT_CONFIG = {
   "Electronic, typed, digital or computer-generated signatures / acknowledgements shall be considered valid for this agreement.",
   "This agreement is generated by computer system. No company signature is required. The agreement remains valid once the Customer has acknowledged and signed / typed the signature below."
 ]; return common.concat(cfg.special || []);
-} function chargeSectionHtml(type){ const cfg = agreementConfig(type); const rawFee = document.getElementById("ccServiceFee")?.value || ""; const ccFee = rawFee ? Number(rawFee).toLocaleString() : "____________"; const chargeLines = (cfg.chargeLines || []).map(x=>String(x).replace("{{CC_SERVICE_FEE}}", ccFee)).map(x=>`<li>${safe(x)}</li>`).join(""); const estimate = estimateCharge(type); return ` <h3>${safe(cfg.chargeTitle)}</h3>
+} function chargeSectionHtml(type){
+  if(usesCustomCharges(type)) return customChargeSectionHtml();
+  const cfg = agreementConfig(type);
+  const rawFee = document.getElementById("ccServiceFee")?.value || "";
+  const ccFee = rawFee ? Number(rawFee).toLocaleString() : "____________";
+  const chargeLines = (cfg.chargeLines || []).map(x=>String(x).replace("{{CC_SERVICE_FEE}}", ccFee)).map(x=>`<li>${safe(x)}</li>`).join("");
+  const estimate = estimateCharge(type);
+  return ` <h3>${safe(cfg.chargeTitle)}</h3>
 <ul>${chargeLines}</ul> ${estimate ? `<p><b>${safe(estimate)}</b></p>` : ""} <p><b>Charging Basis:</b> ${safe(cfg.basis)}</p> `;
 } function generateAgreementPreview(){ const name = agCustomerName.value || "________________________"; const ic = agIC.value || "________________________"; const contact = agContact.value || "________________"; const date = agDate.value || "________________"; const remarks = agRemarks.value ? safe(agRemarks.value).replace(/\n/g,"<br>") : "No special remarks."; const termsHtml = agreementTerms(currentAgreementType).map(t=>`<li>${safe(t)}</li>`).join(""); agreementPreview.innerHTML = ` <h2>JC WEALTH ADVISORY</h2>
 <div style="color:#7b6b60;font-weight:850">${safe(currentAgreementType).toUpperCase()} AGREEMENT</div>
@@ -1887,7 +1913,7 @@ ${(currentAgreementType === "Credit Card Service" || currentAgreementType === "C
 
 </head><body><div class="print-paper">${content}</div>
 </body></html>`); w.document.close(); w.focus(); setTimeout(()=>{ w.print(); }, 300);
-} function clearAgreementForm(){ ["agCustomerName","agIC","agContact","agCustomerSignature","agRemarks","ccServiceFee"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); document.getElementById("agDate").value = new Date().toISOString().slice(0,10); generateAgreementPreview();
+} function clearAgreementForm(){ ["agCustomerName","agIC","agContact","agCustomerSignature","agRemarks","ccServiceFee"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); const rows=document.getElementById("customChargeRows"); if(rows) rows.innerHTML=""; if(usesCustomCharges(currentAgreementType)) addCustomChargeRow("Service Charge", ""); updateCustomChargeTotal(); document.getElementById("agDate").value = new Date().toISOString().slice(0,10); generateAgreementPreview();
 } function calcAgreementTierFee(amt){ let fee=0; if(amt<=0) return 0; if(amt<=50000) fee=amt*.15; else if(amt<=100000) fee=amt*.10; else fee=amt*.08; return Math.max(fee,2000); }
 function rmCalc(n){ return "RM " + Number(n||0).toLocaleString("en-MY",{minimumFractionDigits:0,maximumFractionDigits:0}); }
 function getFeeTypeLabel(value){ const el=document.getElementById("feeType"); if(!el) return value; const opt=el.options[el.selectedIndex]; return opt ? opt.text : value; }
