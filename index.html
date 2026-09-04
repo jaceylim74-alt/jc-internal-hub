@@ -952,6 +952,7 @@ window.addEventListener('error',function(e){console.warn('[JC Hub guarded error]
 <option value="personal">Personal Loan Calculator</option>
 <option value="credit_card">Credit Card Calculator</option>
 <option value="business">Business Loan Calculator</option>
+<option value="consultation">Consultation Fees Calculator</option>
 <option value="settlement">Settlement Calculator</option>
 <option value="savings">Savings Help Calculator</option>
 <option value="refinance_no_panel">Refinance Calculator</option>
@@ -959,10 +960,10 @@ window.addEventListener('error',function(e){console.warn('[JC Hub guarded error]
 <option value="cashout_no_panel">Refinance Cashout - Not Using Our Panel Lawyer</option>
 </select></div>
 <div class="tool-field"><label id="amountLabel">Approved / Cashout / Savings Amount</label><input class="tool-soft-input" id="amount" type="number" placeholder="Example: 200000" oninput="calcFee()"></div>
-<div class="tool-field" id="cashoutApprovedWrap" style="display:none"><label>Total Approved Loan Amount</label><input class="tool-soft-input" id="approvedAmount" type="number" placeholder="For no panel lawyer extra charge" oninput="calcFee()"></div>
+<div class="tool-field" id="cashoutApprovedWrap" style="display:none"><label>Total Approved Loan Amount</label><input class="tool-soft-input" id="approvedAmount" type="number" placeholder="Not required under current charge structure" oninput="calcFee()"></div>
 </div>
 <div class="tool-quick" style="margin-top:14px"><button class="tool-soft-btn primary" onclick="calcFee()">Calculate</button><button class="tool-soft-btn" onclick="resetIncomeCalc()">Reset</button></div>
-<div class="elig-note" id="feeHint">Personal Loan / Business Loan follows tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.</div>
+<div class="elig-note" id="feeHint">Personal Loan / Business Loan: flat 15% of total approved loan amount.</div>
 </div>
 <div class="tool-card-soft"><h3>Calculation Result</h3>
 <div class="elig-result-main"><div class="elig-loan-title">Estimated Service Fee</div><div class="elig-loan-amount" id="feeAmountShow">RM0</div></div>
@@ -1585,10 +1586,7 @@ const AGREEMENT_CONFIG = {
     basis: "Approval-Based Service",
     chargeTitle: "Personal Loan Service Charges",
     chargeLines: [
-      "Approved loan amount RM50,000 and below: 15% based on approved loan amount.",
-      "Approved loan amount RM51,000 to RM100,000: 10% based on approved loan amount.",
-      "Approved loan amount RM101,000 and above: 8% based on approved loan amount.",
-      "Minimum service fee is RM2,000 per case. The payable amount shall be whichever is higher."
+      "Service fee is 15% based on the total approved loan amount for all Personal Loan cases."
     ],
     special: [
       "Service fee is payable once the loan is approved by the bank / financial institution, or once the Company has completed the agreed processing, consultation, arrangement or approval work.",
@@ -1627,10 +1625,7 @@ const AGREEMENT_CONFIG = {
     chargeTitle: "Business Loan Service Charges",
     chargeLines: [
       "Business loan service charges shall follow the Personal Loan service charges structure.",
-      "Approved loan amount RM50,000 and below: 15% based on approved loan amount.",
-      "Approved loan amount RM51,000 to RM100,000: 10% based on approved loan amount.",
-      "Approved loan amount RM101,000 and above: 8% based on approved loan amount.",
-      "Minimum service fee is RM2,000 per case. The payable amount shall be whichever is higher."
+      "Service fee is 15% based on the total approved loan amount for all Business Loan cases."
     ],
     special: [
       "Service fee is payable once the business loan is approved by the bank / financial institution, or once the Company has completed the agreed processing, consultation, arrangement or approval work.",
@@ -1659,16 +1654,15 @@ const AGREEMENT_CONFIG = {
     group: "A - Approval-Based Agreement",
     service: "refinance cash-out consultation, cash-out planning, property value checking, loan structure review, bank matching, document arrangement and submission support.",
     basis: "Approval-Based Service",
-    chargeTitle: "Refinance Cash Out Service Charges",
+    chargeTitle: "IMPORTANT REFINANCE CASHOUT TERMS",
     chargeLines: [
-      "Service fee is 2% based on the approved cash out amount, subject to minimum RM2,000 per case. The payable amount shall be whichever is higher.",
-      "The Customer must use the Company’s panel lawyer for the refinance cash-out arrangement.",
-      "If the Customer does not use the Company’s panel lawyer, an additional 2% service fee based on the total approved loan amount shall be payable on top of the cash-out service fee."
+      "The Customer is required to use the Company’s panel lawyer for the refinance cash-out arrangement.",
+      "If the Customer uses the Company’s panel lawyer, the service fee is 1% based on the total approved loan amount.",
+      "If the Customer insists on not using the Company’s panel lawyer, the service fee is 2% based on the total approved loan amount."
     ],
     special: [
-      "Service fee is payable once the refinance cash-out loan is approved by the bank / financial institution, or once the Company has completed the agreed processing, consultation, arrangement or approval work.",
-      "Upon approval, request, completion, notification, bank release or disbursement, the Customer must transfer the payable service fee to the Company within twelve (12) hours, including weekends and public holidays.",
-      "The Customer shall not reject, cancel, delay, avoid or refuse to proceed after approval by using interest rate, approved rate, bank package, financing structure, approval condition or any similar reason as the basis of rejection. If breached, a RM2,000 penalty shall be imposed in addition to any outstanding service fees, consultation fees or related charges."
+      "The refinance cash-out lawyer arrangement and applicable percentage stated in the highlighted Important Refinance Cashout Terms above form part of this agreement.",
+      "The Customer shall not reject, cancel, delay, avoid or refuse to proceed after approval by using interest rate, approved rate, bank package, financing structure, approval condition or any similar reason as the basis of rejection. If breached, the applicable terms of this agreement shall apply."
     ],
     approvalBased: true
   },
@@ -1676,16 +1670,15 @@ const AGREEMENT_CONFIG = {
     group: "A - Approval-Based Agreement",
     service: "refinance consultation, mortgage restructuring advisory, loan structure review, bank matching, document arrangement and submission support.",
     basis: "Approval-Based Service",
-    chargeTitle: "Refinance Service Charges",
+    chargeTitle: "IMPORTANT REFINANCE TERMS",
     chargeLines: [
       "There is no service fee charged for normal refinance if the Customer uses the Company’s panel lawyer.",
       "The Customer must use the Company’s panel lawyer for the refinance arrangement.",
       "If the Customer does not use the Company’s panel lawyer, 2% service fee based on the total approved loan amount shall be payable."
     ],
     special: [
-      "The above terms apply once the refinance loan is approved by the bank / financial institution, or once the Company has completed the agreed processing, consultation, arrangement or approval work.",
-      "Upon approval, request, completion, notification, bank release or disbursement, the Customer must transfer any payable service fee to the Company within twelve (12) hours, including weekends and public holidays.",
-      "The Customer shall not reject, cancel, delay, avoid or refuse to proceed after approval by using interest rate, approved rate, bank package, financing structure, approval condition or any similar reason as the basis of rejection. If breached, a RM2,000 penalty shall be imposed in addition to any outstanding service fees, consultation fees or related charges."
+      "The lawyer arrangement and applicable terms stated in the highlighted Important Refinance Terms above form part of this agreement.",
+      "The Customer shall not reject, cancel, delay, avoid or refuse to proceed after approval by using interest rate, approved rate, bank package, financing structure, approval condition or any similar reason as the basis of rejection. If breached, the applicable terms of this agreement shall apply."
     ],
     approvalBased: true
   },
@@ -1695,7 +1688,7 @@ const AGREEMENT_CONFIG = {
     basis: "Project & Subsales Consultation Fee",
     chargeTitle: "Consultation Fee Charges",
     chargeLines: [
-      "Consultation fee is fixed at RM1,000 per case, applicable for project and subsales cases only.",
+      "Consultation fee amount is to be inserted / confirmed by the Company before processing.",
       "For subsales cases, if the Customer uses the Company’s panel lawyer, no consultation fee is payable.",
       "The consultation fee is payable once consultation / case review / advisory / arrangement service has started or been provided, unless waived under the panel lawyer arrangement above."
     ],
@@ -1725,7 +1718,7 @@ const AGREEMENT_CONFIG = {
     approvalBased: false
   }
 }; 
-const FIXED_AGREEMENT_CHARGE_TYPES = new Set(["Personal Loan", "Business Loan", "Credit Card", "Credit Card Service", "Savings Help"]);
+const FIXED_AGREEMENT_CHARGE_TYPES = new Set(["Personal Loan", "Business Loan", "Credit Card", "Credit Card Service", "Refinance", "Refinance Cashout"]);
 function usesCustomCharges(type){ return !FIXED_AGREEMENT_CHARGE_TYPES.has(type || currentAgreementType); }
 function refreshCustomChargeVisibility(){
   const wrap = document.getElementById("customChargeWrap");
@@ -1798,13 +1791,28 @@ function agreementConfig(type){ if(type === "Credit Card Service") return AGREEM
   "All customer information and documents shall be treated as private and confidential by the Company, except where disclosure is necessary for banker, lawyer, panel or financial institution processing.",
   "Electronic, typed, digital or computer-generated signatures / acknowledgements shall be considered valid for this agreement.",
   "This agreement is generated by computer system. No company signature is required. The agreement remains valid once the Customer has acknowledged and signed / typed the signature below."
-]; return common.concat(cfg.special || []);
+];
+  if(type === "Refinance" || type === "Refinance Cashout") {
+    const refinanceCommon = common.filter(t => !/All agreed service fees|outstanding consultation fee, service fee|claim consultation fees, service charges/i.test(t));
+    return refinanceCommon.concat(cfg.special || []);
+  }
+  return common.concat(cfg.special || []);
 } function chargeSectionHtml(type){
   if(usesCustomCharges(type)) return customChargeSectionHtml();
   const cfg = agreementConfig(type);
   const rawFee = document.getElementById("ccServiceFee")?.value || "";
   const ccFee = rawFee ? Number(rawFee).toLocaleString() : "____________";
   const chargeLines = (cfg.chargeLines || []).map(x=>String(x).replace("{{CC_SERVICE_FEE}}", ccFee)).map(x=>`<li>${safe(x)}</li>`).join("");
+
+  // Refinance agreements: show only the important information supplied by the Company.
+  // Do not display these terms under a Customer Service Charges section.
+  if(type === "Refinance" || type === "Refinance Cashout") {
+    return `<div style="margin:18px 0;padding:18px 20px;border:2px solid #d8a84e;border-radius:14px;background:#fff8e8;box-shadow:0 8px 22px rgba(176,126,35,.12)">
+      <h3 style="margin-top:0;color:#8a5b00">⚠ ${safe(cfg.chargeTitle)}</h3>
+      <ul style="margin-bottom:0;font-weight:750;line-height:1.75">${chargeLines}</ul>
+    </div>`;
+  }
+
   const estimate = estimateCharge(type);
   return ` <h3>${safe(cfg.chargeTitle)}</h3>
 <ul>${chargeLines}</ul> ${estimate ? `<p><b>${safe(estimate)}</b></p>` : ""} <p><b>Charging Basis:</b> ${safe(cfg.basis)}</p> `;
@@ -1914,21 +1922,22 @@ ${(currentAgreementType === "Credit Card Service" || currentAgreementType === "C
 </head><body><div class="print-paper">${content}</div>
 </body></html>`); w.document.close(); w.focus(); setTimeout(()=>{ w.print(); }, 300);
 } function clearAgreementForm(){ ["agCustomerName","agIC","agContact","agCustomerSignature","agRemarks","ccServiceFee"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); const rows=document.getElementById("customChargeRows"); if(rows) rows.innerHTML=""; if(usesCustomCharges(currentAgreementType)) addCustomChargeRow("Service Charge", ""); updateCustomChargeTotal(); document.getElementById("agDate").value = new Date().toISOString().slice(0,10); generateAgreementPreview();
-} function calcAgreementTierFee(amt){ let fee=0; if(amt<=0) return 0; if(amt<=50000) fee=amt*.15; else if(amt<=100000) fee=amt*.10; else fee=amt*.08; return Math.max(fee,2000); }
+} function calcAgreementTierFee(amt){ return amt>0 ? amt*.15 : 0; }
 function rmCalc(n){ return "RM " + Number(n||0).toLocaleString("en-MY",{minimumFractionDigits:0,maximumFractionDigits:0}); }
 function getFeeTypeLabel(value){ const el=document.getElementById("feeType"); if(!el) return value; const opt=el.options[el.selectedIndex]; return opt ? opt.text : value; }
-function updateIncomeCalcHint(){ const type=document.getElementById("feeType")?.value || "personal"; const amountEl=document.getElementById("amount"); const label=document.getElementById("amountLabel"); const hint=document.getElementById("feeHint"); const cashWrap=document.getElementById("cashoutApprovedWrap"); const noAmountNeeded=["settlement","credit_card"].includes(type); if(cashWrap) cashWrap.style.display=(type==="cashout_no_panel") ? "block" : "none"; if(amountEl){ amountEl.disabled=noAmountNeeded; amountEl.placeholder = noAmountNeeded ? "No amount needed" : (type==="credit_card" ? "No amount needed / insert agreed fee in remarks" : (type.includes("cashout") ? "Enter approved cashout amount" : (type.includes("refinance") ? "Enter total approved loan amount" : "Example: 200000"))); }
- if(label){ label.innerText = type.includes("cashout") ? "Approved Cashout Amount" : (type==="credit_card" ? "Agreed Fee / Connection Fee (Remarks)" : (type.includes("refinance") ? "Total Approved Loan Amount" : "Approved / Savings Amount")); }
- const hintMap={ personal:"Personal Loan follows tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.", credit_card:"Credit Card is separate: no loan-tier percentage. Insert any agreed connection / service fee inside Remarks before processing.", business:"Business Loan follows back Personal Loan tier charges: ≤RM50k = 15%, RM51k-RM100k = 10%, above RM100k = 8%, minimum RM2,000.", settlement:"Settlement charges are blank first / coming soon.", savings:"Savings Help: RM20,000 and below = RM2,000; above RM20,000 = RM3,000.", refinance_no_panel:"Refinance calculator = total approved loan amount x 2%.", cashout_panel:"Refinance Cashout using our panel lawyer = cashout amount x 2%, minimum RM2,000.", cashout_no_panel:"Refinance Cashout not using our panel lawyer = cashout amount x 2%, minimum RM2,000 + total approved loan amount x 2%."}; if(hint) hint.innerText=hintMap[type]||""; }
-function calcFee(){ const type=document.getElementById("feeType")?.value || "personal"; const amt=Number(document.getElementById("amount")?.value||0); const approvedAmt=Number(document.getElementById("approvedAmount")?.value||0); let fee=0, formula="-", condition="-", note="";
- if(type==="personal"){ fee=calcAgreementTierFee(amt); formula=amt<=50000?"15%":(amt<=100000?"10%":"8%"); condition="Minimum RM2,000"; note="Personal Loan fee follows Agreement tier charges."; }
- if(type==="business"){ fee=calcAgreementTierFee(amt); formula=amt<=50000?"15%":(amt<=100000?"10%":"8%"); condition="Follow Personal Loan charges; minimum RM2,000"; note="Business Loan charges follow back Personal Loan calculation."; }
- if(type==="credit_card"){ fee=0; formula="Manual / As agreed"; condition="No loan-tier percentage; insert agreed fee in Remarks"; note="Credit Card charges are separate from loan percentage charges. Use Remarks / Special Terms to state the agreed connection or service fee."; }
- if(type==="settlement"){ fee=0; formula="Blank"; condition="Charges coming soon / insert manually"; note="Settlement calculator kept blank first."; }
- if(type==="savings"){ fee=amt<=20000?2000:3000; formula=amt<=20000?"RM20,000 and below":"Above RM20,000"; condition=amt<=20000?"Fee RM2,000":"Fee RM3,000"; note=amt<=20000?"Savings Help amount is RM20,000 and below, fee RM2,000.":"Savings Help amount is above RM20,000, fee RM3,000."; }
- if(type==="refinance_no_panel"){ fee=amt*.02; formula="Total approved loan amount x 2%"; condition="Refinance service fee"; note="Refinance fee calculated from total approved loan amount."; }
- if(type==="cashout_panel"){ fee=Math.max(amt*.02,2000); formula="Cashout amount x 2%"; condition="Minimum RM2,000"; note="Refinance Cashout using panel lawyer calculation."; }
- if(type==="cashout_no_panel"){ const cashFee=Math.max(amt*.02,2000); const extra=approvedAmt*.02; fee=cashFee+extra; formula="Cashout x 2% + Approved Loan x 2%"; condition="Cashout fee minimum RM2,000 + no-panel extra charge"; note="For no panel lawyer, system adds extra 2% based on total approved loan amount."; }
+function updateIncomeCalcHint(){ const type=document.getElementById("feeType")?.value || "personal"; const amountEl=document.getElementById("amount"); const label=document.getElementById("amountLabel"); const hint=document.getElementById("feeHint"); const cashWrap=document.getElementById("cashoutApprovedWrap"); const manualTypes=["consultation","settlement","savings"]; if(cashWrap) cashWrap.style.display="none"; if(amountEl){ amountEl.disabled=false; amountEl.placeholder = manualTypes.includes(type) ? "Enter agreed service fee" : (type==="credit_card" ? "Enter agreed service fee" : (type.includes("cashout") || type.includes("refinance") ? "Enter total approved loan amount" : "Example: 200000")); }
+ if(label){ label.innerText = manualTypes.includes(type) ? "Agreed Service Fee" : (type==="credit_card" ? "Agreed Service Fee" : (type.includes("cashout") || type.includes("refinance") ? "Total Approved Loan Amount" : "Approved Loan Amount")); }
+ const hintMap={ personal:"Personal Loan: flat 15% of total approved loan amount for all amounts.", credit_card:"Credit Card is manual / as agreed. Key in the agreed service fee.", business:"Business Loan follows Personal Loan: flat 15% of total approved loan amount for all amounts.", consultation:"Consultation Fees: key in the agreed service fee manually.", settlement:"Settlement: key in the agreed service fee manually.", savings:"Savings Help: key in the agreed service fee manually.", refinance_no_panel:"Normal Refinance not using our panel lawyer = total approved loan amount x 2%.", cashout_panel:"Refinance Cashout using our panel lawyer = total approved loan amount x 1%.", cashout_no_panel:"Refinance Cashout not using our panel lawyer = total approved loan amount x 2%."}; if(hint) hint.innerText=hintMap[type]||""; }
+function calcFee(){ const type=document.getElementById("feeType")?.value || "personal"; const amt=Number(document.getElementById("amount")?.value||0); let fee=0, formula="-", condition="-", note="";
+ if(type==="personal"){ fee=amt*.15; formula="Total approved loan x 15%"; condition="Flat 15% for all amounts"; note="Personal Loan service fee is 15% of total approved loan amount."; }
+ if(type==="business"){ fee=amt*.15; formula="Total approved loan x 15%"; condition="Follows Personal Loan"; note="Business Loan service fee follows Personal Loan at flat 15%."; }
+ if(type==="credit_card"){ fee=amt; formula="Manual / As agreed"; condition="Key in agreed service fee"; note="Credit Card service fee is manually entered based on the agreed amount."; }
+ if(type==="consultation"){ fee=amt; formula="Manual / As agreed"; condition="Key in agreed service fee"; note="Consultation fee is manually entered based on the agreed amount."; }
+ if(type==="settlement"){ fee=amt; formula="Manual / As agreed"; condition="Key in agreed service fee"; note="Settlement service fee is manually entered based on the agreed amount."; }
+ if(type==="savings"){ fee=amt; formula="Manual / As agreed"; condition="Key in agreed service fee"; note="Savings Help service fee is manually entered based on the agreed amount."; }
+ if(type==="refinance_no_panel"){ fee=amt*.02; formula="Total approved loan x 2%"; condition="Normal refinance without panel lawyer"; note="Refinance fee calculated from total approved loan amount."; }
+ if(type==="cashout_panel"){ fee=amt*.01; formula="Total approved loan x 1%"; condition="Must use our panel lawyer"; note="Refinance Cashout using our panel lawyer is charged at 1% of total approved loan amount."; }
+ if(type==="cashout_no_panel"){ fee=amt*.02; formula="Total approved loan x 2%"; condition="Not using our panel lawyer"; note="If customer does not use our panel lawyer, Refinance Cashout is charged at 2% of total approved loan amount."; }
  const set=(id,val)=>{ const el=document.getElementById(id); if(el) el.innerText=val; };
  set("feeAmountShow", rmCalc(fee)); set("feeTypeShow", getFeeTypeLabel(type)); set("feeInputShow", rmCalc(amt)); set("feeFormulaShow", formula); set("feeConditionShow", condition); const result=document.getElementById("feeResult"); if(result) result.innerText = "Estimated Fee: " + rmCalc(fee) + "\n" + note;
 }
